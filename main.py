@@ -1,5 +1,6 @@
 import pandas as pd
 import csv
+import matplotlib.pyplot as plt
 
 PathFileCompany = "./Data/fileCompany.csv"
 PathFileCovid = "./Data/fileCovid.csv"
@@ -8,11 +9,22 @@ col_list = ["date", "tx_pos", "tx_incid", "TO", "R", "rea", "hosp", "rad", "dcho
             "incid_rad", "incid_dchosp", "conf", "conf_j1", "pos", "esms_dc", "dc_tot", "pos_7j", "cv_dose1",
             "esms_cas"]
 df = pd.read_csv(PathFileCovid, sep=',', usecols=col_list, encoding='utf-8')
+
+# Ne sert pas pour le graphique
 df['date'] = pd.to_datetime(df['date'], errors='coerce')
+covidCaseByMonth = df.set_index('date').resample('M')["pos"].sum()
+print(covidCaseByMonth)
 
-df.set_index('date').resample('M')["pos"].sum()
+# le graphique
+df["date"] = df["date"].astype("datetime64")
+covidCaseByMonth = df.set_index('date').resample('M')["pos"].sum().plot(kind="bar")
 
-print(df.set_index('date').resample('M')["pos"].sum())
+plt.show()
+plt.close()
+
+
+
+# print(covidCaseByMonth)
 
 
 # with open(PathFileCompany, "r") as fichier:
