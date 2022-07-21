@@ -1,5 +1,4 @@
 import pandas as pd
-import csv
 import matplotlib.pyplot as plt
 
 PathFileCompany = "./Data/fileCompany.csv"
@@ -21,6 +20,9 @@ covidCaseByMonth = df.set_index('date').resample('M')["pos"].sum().plot(kind="ba
 
 plt.show()
 plt.close()
+
+
+
 
 
 
