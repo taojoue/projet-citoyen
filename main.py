@@ -9,11 +9,6 @@ col_list = ["date", "tx_pos", "tx_incid", "TO", "R", "rea", "hosp", "rad", "dcho
             "esms_cas"]
 df = pd.read_csv(PathFileCovid, sep=',', usecols=col_list, encoding='utf-8')
 
-# Ne sert pas pour le graphique
-df['date'] = pd.to_datetime(df['date'], errors='coerce')
-covidCaseByMonth = df.set_index('date').resample('M')["pos"].sum()
-print(covidCaseByMonth)
-
 # le graphique
 df["date"] = df["date"].astype("datetime64")
 covidCaseByMonth = df.set_index('date').resample('M')["pos"].sum().plot(kind="bar")
